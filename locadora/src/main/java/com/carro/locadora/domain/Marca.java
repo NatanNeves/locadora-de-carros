@@ -14,20 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "carro")
-public class Carro {
+public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private Integer ano;
+    private String cnpj;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "marca_id")
-    private Marca marca;
-    
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Proprietario> proprietarios = new ArrayList<>();
+    @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Carro> carros = new ArrayList<>();
 }

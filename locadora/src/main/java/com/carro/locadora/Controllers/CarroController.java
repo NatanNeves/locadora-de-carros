@@ -23,9 +23,11 @@ public class CarroController {
         try {
             String msg = carroService.save(carro);
             return ResponseEntity.ok(msg);
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao salvar carro");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro ao salvar carro: " + e.toString());
         }
+
     }
 
     @PutMapping("/{id}")
