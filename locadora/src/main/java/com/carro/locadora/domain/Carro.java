@@ -27,7 +27,7 @@ public class Carro {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "marca_id")
     private Marca marca;
-    
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Proprietario> proprietarios = new ArrayList<>();
 }

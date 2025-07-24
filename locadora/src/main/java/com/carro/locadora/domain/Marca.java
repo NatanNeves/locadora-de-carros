@@ -1,5 +1,7 @@
 package com.carro.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,8 @@ public class Marca {
     private String nome;
     private String cnpj;
 
+    // Em Marca.java
     @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Carro> carros = new ArrayList<>();
 }

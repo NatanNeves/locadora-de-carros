@@ -40,4 +40,16 @@ public class CarroService {
     public List<Carro> findAll(){
         return this.carroRepository.findAll();
     }
+
+    public List<Carro> listaNome(String nome){
+        return this.carroRepository.findByNome(nome);
+    }
+
+    public List<Carro> listaMarca(Long idMarca){
+        return this.carroRepository.findByMarca_Id(idMarca);
+    }
+
+    public List<Carro> listaAnoAcima(Integer ano){
+        return this.carroRepository.findByAcimaAno(ano);
+    }
 }

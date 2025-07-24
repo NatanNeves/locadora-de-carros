@@ -59,7 +59,22 @@ public class CarroController {
 
     @GetMapping
     public ResponseEntity<List<Carro>> listaCarros(){
-        List<Carro> carros = carroService.findAll();
-        return ResponseEntity.ok(carros);
+        return ResponseEntity.ok(carroService.findAll());
     }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Carro>> listaNome(@PathVariable String nome){
+        return ResponseEntity.ok(carroService.listaNome(nome));
+    }
+
+    @GetMapping("/marca/{id}")
+    public ResponseEntity<List<Carro>> listaMarca(@PathVariable Long id){
+        return ResponseEntity.ok(carroService.listaMarca(id));
+    }
+
+    @GetMapping("/ano/{ano}")
+    public ResponseEntity<List<Carro>> listaAnoAcima(@PathVariable Integer ano){
+        return ResponseEntity.ok(carroService.listaAnoAcima(ano));
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.carro.locadora.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Proprietario {
     private Integer idade;
 
     @ManyToMany(mappedBy = "proprietarios")
+    @JsonIgnore
     private List<Carro> carros = new ArrayList<>();
 
 }
