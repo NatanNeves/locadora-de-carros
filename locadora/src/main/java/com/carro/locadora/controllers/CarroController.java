@@ -1,34 +1,37 @@
-package com.carro.locadora.Controllers;
+package com.carro.locadora.controllers;
 
 import com.carro.locadora.domain.Carro;
+import com.carro.locadora.dtos.CarroDTO;
 import com.carro.locadora.services.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/carros")
+@CrossOrigin("*")
 public class CarroController {
 
     @Autowired
     private CarroService carroService;
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody Carro carro){
+    public ResponseEntity<String> save(@RequestBody CarroDTO dto) {
         try {
+            Carro carro = new Carro();
+            carro.setNome(dto.nome());
+
             String msg = carroService.save(carro);
             return ResponseEntity.ok(msg);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Erro ao salvar carro: " + e.toString());
         }
-
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@RequestBody Carro carro, @PathVariable Long id){
@@ -58,7 +61,7 @@ public class CarroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Carro>> listaCarros(){
+    public ResponseEntity<List<Carro>> listAll(){
         return ResponseEntity.ok(carroService.findAll());
     }
 

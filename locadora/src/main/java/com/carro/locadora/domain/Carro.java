@@ -25,7 +25,7 @@ public class Carro {
     private Integer ano;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "marca_id")
+    @JoinColumn(name = "marca_id", nullable = true)
     private Marca marca;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
