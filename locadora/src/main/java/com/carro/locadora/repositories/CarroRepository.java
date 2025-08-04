@@ -9,11 +9,4 @@ import java.util.List;
 
 @Repository
 public interface CarroRepository extends JpaRepository<Carro, Long> {
-
-    List<Carro> findByNome(String nome);
-
-    List<Carro> findByMarca_Id(Long marcaId);
-
-    @Query("FROM Carro car WHERE car.ano > :ano")
-    List<Carro> findByAcimaAno(Integer ano);
 }

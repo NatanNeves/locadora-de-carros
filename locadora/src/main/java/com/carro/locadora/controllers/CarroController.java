@@ -23,6 +23,9 @@ public class CarroController {
         try {
             Carro carro = new Carro();
             carro.setNome(dto.nome());
+            carro.setModelo(dto.modelo());
+            carro.setMarca(dto.marca());
+            carro.setAno(dto.ano());
 
             String msg = carroService.save(carro);
             return ResponseEntity.ok(msg);
@@ -64,20 +67,4 @@ public class CarroController {
     public ResponseEntity<List<Carro>> listAll(){
         return ResponseEntity.ok(carroService.findAll());
     }
-
-    @GetMapping("/nome/{nome}")
-    public ResponseEntity<List<Carro>> listaNome(@PathVariable String nome){
-        return ResponseEntity.ok(carroService.listaNome(nome));
-    }
-
-    @GetMapping("/marca/{id}")
-    public ResponseEntity<List<Carro>> listaMarca(@PathVariable Long id){
-        return ResponseEntity.ok(carroService.listaMarca(id));
-    }
-
-    @GetMapping("/ano/{ano}")
-    public ResponseEntity<List<Carro>> listaAnoAcima(@PathVariable Integer ano){
-        return ResponseEntity.ok(carroService.listaAnoAcima(ano));
-    }
-
 }

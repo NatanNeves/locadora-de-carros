@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,11 +21,6 @@ public class Carro {
 
     private String nome;
     private Integer ano;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "marca_id", nullable = true)
-    private Marca marca;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Proprietario> proprietarios = new ArrayList<>();
+    private String marca;
+    private String modelo;
 }

@@ -1,11 +1,12 @@
 package com.carro.locadora.services;
 
 import com.carro.locadora.domain.Carro;
+
 import com.carro.locadora.repositories.CarroRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,41 +16,34 @@ public class CarroService {
     @Autowired
     private CarroRepository carroRepository;
 
-    public String save(Carro carro){
-        this.carroRepository.save(carro);
-        return "carro salvo com sucesso!";
+    public String save(Carro carro) {
+        carroRepository.save(carro);
+        return "Carro salvo com sucesso!";
     }
 
-    public String update(Carro carro, Long id){
-        carro.setId(id);
-        this.carroRepository.save(carro);
-        return "carro atualizado com sucesso";
+    public String update(Carro carro, Long id) {
+        Carro carroExistente = carroRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Carro não encontrado"));
+
+        carroExistente.setNome(carro.getNome());
+        carroExistente.setAno(carro.getAno());
+        carroExistente.setMarca(carro.getMarca());
+        carroExistente.setModelo(carro.getModelo());
+
+        carroRepository.save(carroExistente);
+        return "Carro atualizado com sucesso!";
     }
 
-    public String delete(Long id){
-        this.carroRepository.deleteById(id);
-        return "carro deletado com sucesso";
+    public String delete(Long id) {
+        carroRepository.deleteById(id);
+        return "Carro deletado com sucesso!";
     }
 
-    public Optional<Carro> findById (Long id){
-
-        Optional<Carro> carro = this.carroRepository.findById(id);
-        return carro;
+    public Optional<Carro> findById(Long id) {
+        return carroRepository.findById(id);
     }
 
-    public List<Carro> findAll(){
-        return this.carroRepository.findAll();
-    }
-
-    public List<Carro> listaNome(String nome){
-        return this.carroRepository.findByNome(nome);
-    }
-
-    public List<Carro> listaMarca(Long idMarca){
-        return this.carroRepository.findByMarca_Id(idMarca);
-    }
-
-    public List<Carro> listaAnoAcima(Integer ano){
-        return this.carroRepository.findByAcimaAno(ano);
+    public List<Carro> findAll() {
+        return carroRepository.findAll();
     }
 }
